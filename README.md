@@ -1,7 +1,11 @@
 ## Task Manager
 
 ### About
-<p>The project is a console application developed as part of my programming learning journey. The main objective is to provide a comprehensive solution for storing, updating, creating, reading, and deleting tasks locally.</p>
+<p>The project is a console application developed as part of my programming learning journey. <br>
+   The main objective is to provide a comprehensive solution for storing, updating, reading, and deleting tasks locally.</p>
+
+<p>The technologies used include the SQLite database for testing and the Java Database Connection (JDBC) for CRUD operations. <br>
+  The project follows SOLID principles and adopts the clean architecture.</p>
 
 ### Fundamentals Concepts in Java Languange
 - Date
@@ -10,6 +14,14 @@
 - Logic Programming 
 - Exception Handling
 - Object-Oriented Programming
+
+### Intermediate Concepts in Java Language
+- Object
+- Lambda
+- Generics
+- Packages
+- Streams API
+- Collection Frameworks
 
 ### Clone Repository
 ```bash
