@@ -2,21 +2,22 @@ package com.viegasb.taskmanager.application;
 
 import java.util.Scanner;
 
-import com.viegasb.taskmanager.models.Account;
-import com.viegasb.taskmanager.models.Task;
-import com.viegasb.taskmanager.models.UserProfile;
+import com.viegasb.taskmanager.services.ObjectFileManager;
+import com.viegasb.taskmanager.services.ObjectRelationshipsManager;
+import com.viegasb.taskmanager.services.impl.ObjectFileManagerImpl;
+import com.viegasb.taskmanager.services.impl.ObjectManagerImpl;
+import com.viegasb.taskmanager.services.impl.ObjectRelationshipsManagerImpl;
 import com.viegasb.taskmanager.utils.ConsoleUI;
 
 public class Program {
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		ConsoleUI.menuMain(getImplements(), new ObjectFileManagerImpl(), new Scanner(System.in));
+	}
 
-		Account account = ConsoleUI.createAccount(scanner);
-		UserProfile userProfile = ConsoleUI.createUserProfile(scanner);
-		Task task = ConsoleUI.createTask(scanner);
+	private static ObjectManagerImpl getImplements() {
+		ObjectRelationshipsManager relationshipsManager = new ObjectRelationshipsManagerImpl();
+		ObjectFileManager fileManager = new ObjectFileManagerImpl();
 
-		System.out.println(account);
-		System.out.println(userProfile);
-		System.out.println(task);
+		return new ObjectManagerImpl(relationshipsManager, fileManager);
 	}
 }

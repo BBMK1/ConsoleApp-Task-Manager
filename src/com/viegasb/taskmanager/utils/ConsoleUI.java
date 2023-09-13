@@ -1,5 +1,7 @@
 package com.viegasb.taskmanager.utils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -10,24 +12,38 @@ import com.viegasb.taskmanager.models.Account;
 import com.viegasb.taskmanager.models.Task;
 import com.viegasb.taskmanager.models.UserProfile;
 import com.viegasb.taskmanager.models.exceptions.InvalidInputException;
+import com.viegasb.taskmanager.services.ObjectFileManager;
+import com.viegasb.taskmanager.services.ObjectManager;
 
 public class ConsoleUI {
-	public static int menuMain(Scanner scan) {
-		System.out.println("-=-=-=-=-= Menu -=-=-=-=-=");
-		System.out.println("- 1 > Create");
-		System.out.println("- 2 > Read");
-		System.out.println("- 3 > Update");
-		System.out.println("- 4 > Delete");
-		System.out.println("- 0 > Exit");
-		System.out.print("-=-=-=-=-=-=-=-=-=-=-=-=-=\n@ ");
+	public static int menuMain(
+			ObjectManager objectManager, ObjectFileManager fileManager, Scanner scan) {
+		while (true) {
+			try {
+				System.out.println("-=-=-=-=-= Menu -=-=-=-=-=-=-=-=-=-=");
+				System.out.println("- 1 > Create");
+				System.out.println("- 2 > Read");
+				System.out.println("- 3 > Update");
+				System.out.println("- 4 > Delete");
+				System.out.println("- 5 > Exit");
+				System.out.print("-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=\n@ ");
 
-		return Integer.parseInt(scan.nextLine());
+				Integer valueInput = Integer.parseInt(scan.nextLine());
+				System.out.println();
+
+				ValidateUI.getResponseByMenu(objectManager, fileManager, valueInput, scan);
+			}
+			catch (FileNotFoundException ex) { MessageConfig.errorMessage(ex); }
+			catch (IOException ex) { MessageConfig.errorMessage(ex); }
+			catch (ClassNotFoundException ex) { MessageConfig.errorMessage(ex); }
+			catch (NumberFormatException ex) { MessageConfig.errorMessage(ex); }
+		}
 	}
 
 	public static Account createAccount(Scanner scan) {
 		while (true) {
 			try {
-				System.out.println("-=-=-=-=-=-=- Account -=-=-=-=-=-=");
+				System.out.println("-=-=-=-=-=-=- Account -=--=-=-=-=-=");
 
 				System.out.print("Email: ");
 				String email = scan.nextLine();
@@ -46,7 +62,7 @@ public class ConsoleUI {
 	}
 
 	public static UserProfile createUserProfile(Scanner scan) {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("-=-=-=-=-=- User-Profile -=-=-=-=-=");
 
@@ -59,19 +75,39 @@ public class ConsoleUI {
 				System.out.print("Birth-Of-Day: ");
 				String birthOfDay = scan.nextLine();
 
-				if(!ValidateUI.hasDateCheck(DateConfig.dateFormatter(birthOfDay)))
+				if (!ValidateUI.hasDateCheck(DateConfig.dateFormatter(birthOfDay)))
 					continue;
 
 				System.out.println("-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=\n");
 				return new UserProfile(firstName, lastName, birthOfDay);
 			}
-			catch(InvalidDateInputException ex) { MessageConfig.errorMessage(ex); }
-			catch(DateTimeParseException ex) { MessageConfig.errorMessage(ex); }
+			catch (InvalidDateInputException ex) { MessageConfig.errorMessage(ex); }
+			catch (DateTimeParseException ex) { MessageConfig.errorMessage(ex); }
 		}
 	}
 
-	public static Task createTask(Scanner scan) {
-		System.out.println("-=-=-=-=-= Task -=-=-=-=-=");
+	public static Task[] createTaskFromInput(Scanner scan) {
+		while(true) {
+			try {
+				System.out.println("-=-=-=-=-=-=-= Task -=-=-=-=-=-=-=");
+
+				System.out.print("How-Many-Tasks-Create: ");
+				Integer numberOfTasks = Integer.parseInt(scan.nextLine());
+
+				Task[] newTask = new Task[numberOfTasks];
+				System.out.println("-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=\n");
+
+				for (int i = 0; i < numberOfTasks; i++)
+					newTask[i] = createTask(scan);
+
+				return newTask;
+			}
+			catch (NumberFormatException ex) { MessageConfig.errorMessage(ex); }
+		}
+	}
+
+	private static Task createTask(Scanner scan) {
+		System.out.println("-=-=-=-=-= Create Task -=--=-=-=--=");
 
 		System.out.print("Description: ");
 		String description = scan.nextLine();

@@ -52,9 +52,9 @@ public class Account {
 				.append("[")
 				.append(String.format("Email: %s, ", email))
 				.append(String.format("Password: %s, ", password))
-				.append(String.format("Created-At: %s, ", createdAt))
+				.append(String.format("Created-At: %s", createdAt))
+				.append("]\n")
 				.append(userProfile)
-				.append("]")
 				.toString();
 	}
 

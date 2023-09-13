@@ -8,6 +8,8 @@ public class Task {
 	private String category;
 	private LocalDate createdAt;
 
+	private UserProfile userProfile;
+
 	public Task(String description, String category) {
 		this.description = description;
 		this.category = category;
@@ -23,6 +25,12 @@ public class Task {
 	public void setCategory(String category) { this.category = category; }
 
 	public LocalDate getCreatedAt() { return createdAt; }
+
+	public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
+
+	public UserProfile getUserProfile() { return userProfile; }
+
+	public void setUserProfile(UserProfile userProfile) { this.userProfile = userProfile; }
 
 	@Override
 	public int hashCode() { return Objects.hash(category, createdAt, description); }
@@ -42,12 +50,12 @@ public class Task {
 	@Override
 	public String toString() {
 		return new StringBuilder()
-				.append("User-Profile ")
+				.append("Task ")
 				.append("[")
 				.append(String.format("Description: %s, ", description))
 				.append(String.format("Category: %s, ", category))
 				.append(String.format("Created-At: %s", createdAt))
-				.append("]")
+				.append("]\n")
 				.toString();
 	}
 }

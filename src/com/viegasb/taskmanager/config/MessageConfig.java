@@ -18,4 +18,20 @@ public class MessageConfig {
 		System.out.println(formatter);
 		System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
 	}
+
+	public static void messagePrint(String message) {
+		var formatter = String.format("--- %s ---", message);
+
+		System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+		System.out.println(formatter);
+		System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+	}
+
+	public static void messagePrint(String message, String file) {
+		var formatter = String.format("--- %s - %s ---", message, file);
+
+		System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+		System.out.println(formatter);
+		System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+	}
 }
