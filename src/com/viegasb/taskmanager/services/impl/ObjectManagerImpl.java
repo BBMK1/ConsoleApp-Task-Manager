@@ -2,7 +2,9 @@ package com.viegasb.taskmanager.services.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.viegasb.taskmanager.config.MessageConfig;
 import com.viegasb.taskmanager.models.Account;
@@ -28,7 +30,7 @@ public class ObjectManagerImpl implements ObjectManager {
 	public void creatingObject(Scanner scan) throws FileNotFoundException, IOException {
 		Account account = ConsoleUI.createAccount(scan);
 		UserProfile userProfile = ConsoleUI.createUserProfile(scan);
-		Task[] tasks = ConsoleUI.createTaskFromInput(scan);
+		Set<Task> tasks = ConsoleUI.createTaskFromInput(scan);
 
 		creatingRelationships(account, userProfile, tasks);
 		fileManager.createObject(account);
@@ -40,7 +42,7 @@ public class ObjectManagerImpl implements ObjectManager {
 	public void creatingObjectUpdate(Scanner scan) throws FileNotFoundException, IOException {
 		Account account = ConsoleUI.createAccount(scan);
 		UserProfile userProfile = ConsoleUI.createUserProfile(scan);
-		Task[] tasks = ConsoleUI.createTaskFromInput(scan);
+		Set<Task> tasks = ConsoleUI.createTaskFromInput(scan);
 
 		creatingRelationships(account, userProfile, tasks);
 		fileManager.updateObject(account);
@@ -48,7 +50,7 @@ public class ObjectManagerImpl implements ObjectManager {
 		MessageConfig.messagePrint("Update File");
 	}
 
-	private void creatingRelationships(Account account, UserProfile userProfile, Task[] tasks) {
+	private void creatingRelationships(Account account, UserProfile userProfile, Collection<Task> tasks) {
 		relationshipsManager.accountAndUserProfile(account, userProfile);
 		relationshipsManager.userProfileAndTask(userProfile, tasks);
 	}

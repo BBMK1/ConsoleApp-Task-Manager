@@ -3,9 +3,11 @@ package com.viegasb.taskmanager.utils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Scanner;
 
 import com.viegasb.taskmanager.config.exceptions.InvalidDateInputException;
+import com.viegasb.taskmanager.models.Task;
 import com.viegasb.taskmanager.models.exceptions.InvalidInputException;
 import com.viegasb.taskmanager.services.ObjectFileManager;
 import com.viegasb.taskmanager.services.ObjectManager;
@@ -23,6 +25,13 @@ public class ValidateUI {
 			return true;
 
 		throw new InvalidDateInputException(date);
+	}
+
+	public static Boolean isTaskCollectionSizeEqualTo(Collection<Task> tasks, Integer response) {
+		if(tasks.size() == response)
+			return true;
+
+		throw new IllegalArgumentException("Error: Task Size -1");
 	}
 
 	public static void getResponseByMenu(

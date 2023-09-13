@@ -1,7 +1,9 @@
 package com.viegasb.taskmanager.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.viegasb.taskmanager.config.ConvertConfig;
 import com.viegasb.taskmanager.config.DateConfig;
@@ -12,14 +14,14 @@ public class UserProfile {
 	private String lastName;
 	private LocalDate birthOfDay;
 
-	private Task[] tasks;
+	private Set<Task> tasks;
 	private Account account;
 
 	public UserProfile(String firstName, String lastName, String birthOfDay) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthOfDay = DateConfig.dateFormatter(birthOfDay);
-		this.tasks = new Task[2];
+		this.tasks = new HashSet<>();
 	}
 
 	public String getFirstName() { return firstName; }
@@ -34,16 +36,11 @@ public class UserProfile {
 
 	public void setBirthOfDay(LocalDate birthOfDay) { this.birthOfDay = birthOfDay; }
 
-	public Task[] getTasks() { return tasks; }
+	public Set<Task> getTasks() { return tasks; }
 
 	public Account getAccount() { return account; }
 
 	public void setAccount(Account account) { this.account = account; }
-
-	public void setTasks(Task[] task) {
-		for(int i = 0; i < this.tasks.length; i++)
-			this.tasks[i] = task[i];
-	}
 
 	@Override
 	public int hashCode() { return Objects.hash(birthOfDay, firstName, lastName); }
@@ -69,7 +66,7 @@ public class UserProfile {
 				.append(String.format("Last-Name: %s, ", lastName))
 				.append(String.format("Birth-Of-Day: %s", birthOfDay))
 				.append("]\n")
-				.append(ConvertConfig.convertToArray(tasks))
+				.append(ConvertConfig.convertToCollections(tasks))
 				.toString();
 	}
 

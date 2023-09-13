@@ -1,5 +1,7 @@
 package com.viegasb.taskmanager.services.impl;
 
+import java.util.Collection;
+
 import com.viegasb.taskmanager.models.Account;
 import com.viegasb.taskmanager.models.Task;
 import com.viegasb.taskmanager.models.UserProfile;
@@ -14,11 +16,11 @@ public class ObjectRelationshipsManagerImpl implements ObjectRelationshipsManage
 	}
 
 	@Override
-	public void userProfileAndTask(UserProfile userProfile, Task[] tasks) {
-		for(int i = 0; i < tasks.length; i++)
-			userProfile.setTasks(tasks);
-
-		for(Task item : tasks)
-			item.setUserProfile(userProfile);
+	public void userProfileAndTask(UserProfile userProfile, Collection<Task> tasks) {
+		tasks.stream()
+			.forEach(items -> {
+				userProfile.getTasks().add(items);
+				items.setUserProfile(userProfile);
+			});
 	}
 }

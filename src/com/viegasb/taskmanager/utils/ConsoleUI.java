@@ -3,7 +3,9 @@ package com.viegasb.taskmanager.utils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.viegasb.taskmanager.config.DateConfig;
 import com.viegasb.taskmanager.config.MessageConfig;
@@ -86,7 +88,7 @@ public class ConsoleUI {
 		}
 	}
 
-	public static Task[] createTaskFromInput(Scanner scan) {
+	public static Set<Task> createTaskFromInput(Scanner scan) {
 		while(true) {
 			try {
 				System.out.println("-=-=-=-=-=-=-= Task -=-=-=-=-=-=-=");
@@ -94,15 +96,19 @@ public class ConsoleUI {
 				System.out.print("How-Many-Tasks-Create: ");
 				Integer numberOfTasks = Integer.parseInt(scan.nextLine());
 
-				Task[] newTask = new Task[numberOfTasks];
+				Set<Task> newTasks = new HashSet<>();
 				System.out.println("-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=\n");
 
 				for (int i = 0; i < numberOfTasks; i++)
-					newTask[i] = createTask(scan);
+					newTasks.add(createTask(scan));
 
-				return newTask;
+				if(!ValidateUI.isTaskCollectionSizeEqualTo(newTasks, numberOfTasks))
+					continue;
+
+				return newTasks;
 			}
 			catch (NumberFormatException ex) { MessageConfig.errorMessage(ex); }
+			catch (IllegalArgumentException ex) { MessageConfig.errorMessage(ex); }
 		}
 	}
 
