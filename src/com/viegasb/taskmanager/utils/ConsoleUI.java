@@ -74,14 +74,14 @@ public class ConsoleUI {
 				System.out.print("Last-Name: ");
 				String lastName = scan.nextLine();
 
-				System.out.print("Birth-Of-Day: ");
-				String birthOfDay = scan.nextLine();
+				System.out.print("Birth-Of-Date: ");
+				String birthOfDate = scan.nextLine();
 
-				if (!ValidateUI.hasDateCheck(DateConfig.dateFormatter(birthOfDay)))
+				if (!ValidateUI.hasDateCheck(DateConfig.dateFormatter(birthOfDate)))
 					continue;
 
 				System.out.println("-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=\n");
-				return new UserProfile(firstName, lastName, birthOfDay);
+				return new UserProfile(firstName, lastName, birthOfDate);
 			}
 			catch (InvalidDateInputException ex) { MessageConfig.errorMessage(ex); }
 			catch (DateTimeParseException ex) { MessageConfig.errorMessage(ex); }

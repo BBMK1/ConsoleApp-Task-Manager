@@ -7,20 +7,20 @@ import java.util.Set;
 
 import com.viegasb.taskmanager.config.ConvertConfig;
 import com.viegasb.taskmanager.config.DateConfig;
+import com.viegasb.taskmanager.models.pk.BaseEntity;
 
-public class UserProfile {
-
+public class UserProfile extends BaseEntity {
 	private String firstName;
 	private String lastName;
-	private LocalDate birthOfDay;
+	private LocalDate birthOfDate;
 
 	private Set<Task> tasks;
 	private Account account;
 
-	public UserProfile(String firstName, String lastName, String birthOfDay) {
+	public UserProfile(String firstName, String lastName, String birthOfDate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.birthOfDay = DateConfig.dateFormatter(birthOfDay);
+		this.birthOfDate = DateConfig.dateFormatter(birthOfDate);
 		this.tasks = new HashSet<>();
 	}
 
@@ -32,18 +32,20 @@ public class UserProfile {
 
 	public void setLastName(String lastName) { this.lastName = lastName; }
 
-	public LocalDate getBirthOfDay() { return birthOfDay; }
+	public LocalDate getBirthOfDate() { return birthOfDate; }
 
-	public void setBirthOfDay(LocalDate birthOfDay) { this.birthOfDay = birthOfDay; }
+	public void setBirthOfDate(LocalDate birthOfDate) { this.birthOfDate = birthOfDate; }
 
 	public Set<Task> getTasks() { return tasks; }
 
 	public Account getAccount() { return account; }
 
 	public void setAccount(Account account) { this.account = account; }
+	
+	public Integer getId() { return getId(); }
 
 	@Override
-	public int hashCode() { return Objects.hash(birthOfDay, firstName, lastName); }
+	public int hashCode() { return Objects.hash(getId(), birthOfDate, firstName, lastName); }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -52,7 +54,8 @@ public class UserProfile {
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		UserProfile other = (UserProfile) obj;
-		return Objects.equals(birthOfDay, other.birthOfDay)
+		return Objects.equals(birthOfDate, other.birthOfDate)
+				&& Objects.equals(getId(), other.getId())
 				&& Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName);
 	}
@@ -62,9 +65,10 @@ public class UserProfile {
 		return new StringBuilder()
 				.append("User-Profile ")
 				.append("[")
+				.append(String.format("Id: %s, ", getId()))
 				.append(String.format("First-Name: %s, ", firstName))
 				.append(String.format("Last-Name: %s, ", lastName))
-				.append(String.format("Birth-Of-Day: %s", birthOfDay))
+				.append(String.format("Birth-Of-Date: %s", birthOfDate))
 				.append("]\n")
 				.append(ConvertConfig.convertToCollections(tasks))
 				.toString();
