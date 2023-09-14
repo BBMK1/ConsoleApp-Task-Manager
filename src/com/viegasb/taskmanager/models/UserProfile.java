@@ -7,9 +7,9 @@ import java.util.Set;
 
 import com.viegasb.taskmanager.config.ConvertConfig;
 import com.viegasb.taskmanager.config.DateConfig;
-import com.viegasb.taskmanager.models.pk.BaseEntity;
 
-public class UserProfile extends BaseEntity {
+public class UserProfile {
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthOfDate;
@@ -41,11 +41,13 @@ public class UserProfile extends BaseEntity {
 	public Account getAccount() { return account; }
 
 	public void setAccount(Account account) { this.account = account; }
-	
-	public Integer getId() { return getId(); }
+
+	public Integer getId() { return id; }
+
+	public void setId(Integer id) { this.id = id; }
 
 	@Override
-	public int hashCode() { return Objects.hash(getId(), birthOfDate, firstName, lastName); }
+	public int hashCode() { return Objects.hash(birthOfDate, firstName, lastName); }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -55,7 +57,6 @@ public class UserProfile extends BaseEntity {
 			return false;
 		UserProfile other = (UserProfile) obj;
 		return Objects.equals(birthOfDate, other.birthOfDate)
-				&& Objects.equals(getId(), other.getId())
 				&& Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName);
 	}

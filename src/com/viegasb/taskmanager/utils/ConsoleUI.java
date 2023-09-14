@@ -2,6 +2,7 @@ package com.viegasb.taskmanager.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -39,6 +40,7 @@ public class ConsoleUI {
 			catch (IOException ex) { MessageConfig.errorMessage(ex); }
 			catch (ClassNotFoundException ex) { MessageConfig.errorMessage(ex); }
 			catch (NumberFormatException ex) { MessageConfig.errorMessage(ex); }
+			catch (SQLException e) { e.printStackTrace(); }
 		}
 	}
 
@@ -57,7 +59,7 @@ public class ConsoleUI {
 					continue;
 
 				System.out.println("-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=\n");
-				return new Account(email, password);
+				return new Account(null, email, password);
 			}
 			catch (InvalidInputException ex) { MessageConfig.errorMessage(ex); }
 		}

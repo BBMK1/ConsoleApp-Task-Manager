@@ -30,6 +30,7 @@ public class ObjectFileManagerImpl implements ObjectFileManager {
 	public void createObject(Account object) throws FileNotFoundException, IOException {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fullPath))) {
 			writer.write(object.toString());
+			MessageConfig.messagePrint("Created File");
 		}
 	}
 
@@ -49,8 +50,8 @@ public class ObjectFileManagerImpl implements ObjectFileManager {
 	@Override
 	public void updateObject(Account newObject) throws IOException {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fullPath))) {
-			writer.write("Update:\n\n");
 			writer.write(newObject.toString());
+			MessageConfig.messagePrint("Updated File");
 		}
 	}
 

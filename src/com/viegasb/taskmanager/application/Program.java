@@ -2,6 +2,9 @@ package com.viegasb.taskmanager.application;
 
 import java.util.Scanner;
 
+import com.viegasb.taskmanager.database.impl.AccountRepository;
+import com.viegasb.taskmanager.database.impl.TaskRepository;
+import com.viegasb.taskmanager.database.impl.UserProfileRepository;
 import com.viegasb.taskmanager.services.ObjectFileManager;
 import com.viegasb.taskmanager.services.ObjectRelationshipsManager;
 import com.viegasb.taskmanager.services.impl.ObjectFileManagerImpl;
@@ -18,6 +21,20 @@ public class Program {
 		ObjectRelationshipsManager relationshipsManager = new ObjectRelationshipsManagerImpl();
 		ObjectFileManager fileManager = new ObjectFileManagerImpl();
 
-		return new ObjectManagerImpl(relationshipsManager, fileManager);
+		AccountRepository accountRepository = new AccountRepository(getConnectionString());
+		UserProfileRepository userProfileRepository = new UserProfileRepository(getConnectionString());
+		TaskRepository taskRepository = new TaskRepository(getConnectionString());
+
+		return new ObjectManagerImpl(
+				relationshipsManager,
+				fileManager,
+				accountRepository,
+				userProfileRepository,
+				taskRepository
+				);
+	}
+
+	private static String getConnectionString() {
+		return "jdbc:sqlite:C:/Workspace/task-manager/database.db";
 	}
 }

@@ -2,6 +2,7 @@ package com.viegasb.taskmanager.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Scanner;
@@ -36,7 +37,7 @@ public class ValidateUI {
 
 	public static void getResponseByMenu(
 			ObjectManager objectManager, ObjectFileManager fileManager, Integer response, Scanner scan)
-					throws FileNotFoundException, IOException, ClassNotFoundException {
+					throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
 		switch (response) {
 		case 1 -> objectManager.creatingObject(scan);
 		case 2 -> System.out.println(fileManager.getObject());

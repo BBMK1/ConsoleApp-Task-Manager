@@ -3,16 +3,16 @@ package com.viegasb.taskmanager.models;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.viegasb.taskmanager.models.pk.BaseEntity;
-
-public class Account extends BaseEntity {
+public class Account {
+	private Integer id;
 	private String email;
 	private String password;
 	private LocalDate createdAt;
 
 	private UserProfile userProfile;
 
-	public Account(String email, String password) {
+	public Account(Integer id, String email, String password) {
+		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.createdAt = LocalDate.now();
@@ -31,11 +31,15 @@ public class Account extends BaseEntity {
 	public UserProfile getUserProfile() { return userProfile; }
 
 	public void setUserProfile(UserProfile userProfile) { this.userProfile = userProfile; }
-	
-	public Integer getId() { return getId(); }
+
+	public Integer getId() { return id; }
+
+	public void setId(Integer id) { this.id = id; }
+
+	public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
 	@Override
-	public int hashCode() { return Objects.hash(getId(), createdAt, email, password); }
+	public int hashCode() { return Objects.hash(createdAt, email, password); }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -45,7 +49,6 @@ public class Account extends BaseEntity {
 			return false;
 		Account other = (Account) obj;
 		return Objects.equals(createdAt, other.createdAt)
-				&& Objects.equals(getId(), other.getId())
 				&& Objects.equals(email, other.email)
 				&& Objects.equals(password, other.password);
 	}

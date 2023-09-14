@@ -3,9 +3,8 @@ package com.viegasb.taskmanager.models;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.viegasb.taskmanager.models.pk.BaseEntity;
-
-public class Task extends BaseEntity {
+public class Task {
+	private Integer id;
 	private String description;
 	private String category;
 	private LocalDate createdAt;
@@ -33,11 +32,13 @@ public class Task extends BaseEntity {
 	public UserProfile getUserProfile() { return userProfile; }
 
 	public void setUserProfile(UserProfile userProfile) { this.userProfile = userProfile; }
-	
-	public Integer getId() { return getId(); }
+
+	public Integer getId() { return id; }
+
+	public void setId(Integer id) { this.id = id; }
 
 	@Override
-	public int hashCode() { return Objects.hash(getId(), category, createdAt, description); }
+	public int hashCode() { return Objects.hash(category, createdAt, description); }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -47,7 +48,6 @@ public class Task extends BaseEntity {
 			return false;
 		Task other = (Task) obj;
 		return Objects.equals(category, other.category)
-				&& Objects.equals(getId(), other.getId())
 				&& Objects.equals(createdAt, other.createdAt)
 				&& Objects.equals(description, other.description);
 	}
